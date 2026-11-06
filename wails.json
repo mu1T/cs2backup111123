@@ -1,0 +1,20 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "cs2backup",
+  "outputfilename": "cs2backup",
+  "frontend:install": "pnpm install",
+  "frontend:build": "pnpm run build",
+  "frontend:dev:watcher": "pnpm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "CS2 Config Backup",
+    "email": "dev@cs2backup.local"
+  },
+  "info": {
+    "companyName": "CS2 Config Backup",
+    "productName": "CS2 Config Backup & Sync",
+    "productVersion": "2.0.0",
+    "copyright": "Copyright 2026",
+    "comments": "CS2 Config Backup & Sync Desktop Application"
+  }
+}

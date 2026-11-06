@@ -1,0 +1,42 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+build/bin/
+
+# Node
+frontend/node_modules/
+frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local runtime caches
+config/avatarcache/
+config/crosshair_presets.json
+
+# 项目内部文档与工作区（不随仓库发布）
+/AGENTS.md
+/GLOSSARY.md
+/.scratch/
+/docs/
+
+# 本地临时产物（测试二进制、探针）
+.tmp/
+
+# Wails 构建缓存标记
+frontend/package.json.md5
+
+# 本机运行时数据（路径、缓存、备注、头像）——不进版本库
+config/

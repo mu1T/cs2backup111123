@@ -1,0 +1,21 @@
+{
+    "python.analysis.extraPaths": ["./src"],
+    "python.autoComplete.extraPaths": ["./src"],
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+    },
+    "python.envFile": "${workspaceFolder}/.env",
+    "chat.tools.terminal.autoApprove": {
+        "move": true,
+        "c:\\python313\\python.exe": true,
+        "Out-Null": true,
+        "print(f'包含注释的行:": true,
+        "f'包含注释的行:": true,
+        "len(comments)": true,
+        "comments": true,
+        "/^python -m py_compile src\\\\dialogs\\.py ; python -c \"from src\\.dialogs import LaunchOptionsDialog, SteamProtectionSettingsDialog; print\\('✓ 对话框修复成功'\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

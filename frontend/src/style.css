@@ -1,0 +1,568 @@
+/* ============================================================================
+   WinUI 3 / Fluent Design 设计令牌
+   ----------------------------------------------------------------------------
+   取值对齐 Windows 11 深色主题的语义色阶：
+   - SolidBackgroundFillColorBase  (#202020, Mica 底色)
+   - LayerFillColorDefault         rgba(58,58,58,.30)
+   - CardBackgroundFillColorDefault rgba(255,255,255,.05)
+   - ControlFillColorDefault       rgba(255,255,255,.0605)
+   - TextFillColorPrimary/Secondary/Tertiary
+   圆角：卡片 8px / 控件 4px（WinUI 3 标准）
+   动效：83ms / 167ms / 250ms + cubic-bezier(0,0,0,1)
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- 背景层（Mica 及其上的层级表面） ---- */
+  --bg-app: #202020;
+  --bg-app-alt: #1c1c1c;
+  --bg-surface: #272727;
+  --bg-surface-alt: #2d2d2d;
+
+  /* ---- 卡片 / 图层 ---- */
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
+  --bg-card-active: rgba(255, 255, 255, 0.035);
+  --bg-card-solid: #2b2b2b;
+
+  /* ---- 控件填充 ---- */
+  --bg-control: rgba(255, 255, 255, 0.0605);
+  --bg-control-hover: rgba(255, 255, 255, 0.0837);
+  --bg-control-active: rgba(255, 255, 255, 0.0326);
+  --control-height: 32px;
+  --control-height-sm: 28px;
+  --control-height-lg: 40px;
+
+  /* ---- 描边 ---- */
+  --border-color: rgba(255, 255, 255, 0.0698);
+  --border-control: rgba(255, 255, 255, 0.0698);
+  --border-control-hover: rgba(255, 255, 255, 0.093);
+  --border-active: #0078d4;
+  --divider: rgba(255, 255, 255, 0.0837);
+
+  /* ---- 表面与描边阶梯（供各 SFC 复用，避免散落字面量） ----
+     命名按「层级」而非「用途」：数值越大越显眼。
+     这些值是从各组件里收回来的重复字面量，改主题时只需改这里。 */
+  --surface-1: rgba(255, 255, 255, 0.02); /* 次级卡片底 */
+  --surface-2: rgba(255, 255, 255, 0.04); /* 卡片底 */
+  --surface-3: rgba(255, 255, 255, 0.06); /* 控件底 */
+  --surface-4: rgba(255, 255, 255, 0.08); /* 控件 hover */
+  --stroke-1: rgba(255, 255, 255, 0.07); /* 弱描边 */
+  --stroke-2: rgba(255, 255, 255, 0.1); /* 常规描边 */
+  --stroke-3: rgba(255, 255, 255, 0.15); /* 强调描边 */
+
+  /* ---- 语义色调（同色不同透明度，按强度分档） ---- */
+  --tone-accent-weak: rgba(0, 120, 212, 0.08);
+  --tone-accent-mid: rgba(0, 120, 212, 0.25);
+  --tone-accent-strong: rgba(0, 120, 212, 0.3);
+  --tone-success-weak: rgba(108, 203, 95, 0.15);
+  --tone-error-weak: rgba(255, 153, 164, 0.15);
+  --tone-error-strong: rgba(255, 153, 164, 0.3);
+  --tone-info-weak: rgba(96, 205, 255, 0.12);
+  --tone-info-stroke: rgba(96, 205, 255, 0.32);
+
+  /* ---- 强调色（Fluent Accent） ---- */
+  --accent: #0078d4;
+  --accent-hover: #1a86d9;
+  --accent-active: #0067b8;
+  --accent-subtle: rgba(0, 120, 212, 0.12);
+  --accent-subtle-hover: rgba(0, 120, 212, 0.18);
+  --accent-text: #ffffff;
+  --accent-light: #60cdff;
+
+  /* 兼容旧命名（历史组件仍在引用） */
+  --accent-cs2: #0078d4;
+  --accent-cs2-hover: #1a86d9;
+  --accent-cs2-glow: transparent;
+  --accent-color: #0078d4;
+
+  /* ---- 文本色阶（TextFillColor） ---- */
+  --color-text: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.786);
+  --color-text-muted: rgba(255, 255, 255, 0.544);
+  --color-text-disabled: rgba(255, 255, 255, 0.363);
+
+  /* ---- 状态色 ---- */
+  --level-info: #60cdff;
+  --level-success: #6ccb5f;
+  --level-warning: #fce100;
+  --level-error: #ff99a4;
+  --status-success-fill: rgba(108, 203, 95, 0.12);
+  --status-success-stroke: rgba(108, 203, 95, 0.32);
+  --status-warning-fill: rgba(252, 225, 0, 0.1);
+  --status-warning-stroke: rgba(252, 225, 0, 0.28);
+  --status-error-fill: rgba(255, 153, 164, 0.1);
+  --status-error-stroke: rgba(255, 153, 164, 0.3);
+
+  /* ---- 字体 ---- */
+  --font-sans: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei",
+    -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  --font-mono: "Cascadia Mono", "Cascadia Code", Consolas, "JetBrains Mono", monospace;
+
+  /* ---- 圆角（卡片 8 / 控件 4） ---- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-card: 8px;
+  --radius-control: 4px;
+  --radius-pill: 9999px;
+  --radius-full: 9999px;
+
+  /* ---- 阴影（Fluent 层级，无霓虹） ---- */
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.18);
+  --shadow-flyout: 0 8px 16px rgba(0, 0, 0, 0.28);
+  --shadow-dialog: 0 32px 64px rgba(0, 0, 0, 0.48), 0 2px 21px rgba(0, 0, 0, 0.32);
+
+  /* ---- 动效 ---- */
+  --duration-fast: 83ms;
+  --duration-normal: 167ms;
+  --duration-slow: 250ms;
+  --ease-standard: cubic-bezier(0, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --transition-fast: all var(--duration-fast) var(--ease-standard);
+
+  /* ---- 间距（4/8 栅格） ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-app);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- 滚动条（WinUI 3 细窄样式） ---- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.24);
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: var(--radius-pill);
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+  background-clip: content-box;
+}
+
+/* ---- 键盘焦点（WinUI FocusVisual：2px 强调色描边 + 内缩） ---- */
+:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 1px;
+  border-radius: var(--radius-control);
+}
+
+/* ---- 排版工具类 ---- */
+.font-mono,
+.mono-font {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.text-accent {
+  color: var(--accent-light);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+/* ============================================================================
+   全局控件：Button
+   WinUI 3 标准：高 32px、圆角 4px、13px 字号、填充变化反馈（不做位移动画）
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: var(--control-height);
+  padding: 0 14px;
+  border-radius: var(--radius-control);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+.btn-primary,
+.btn-accent {
+  background-color: var(--accent);
+  color: var(--accent-text);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.btn-primary:hover:not(:disabled),
+.btn-accent:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.btn-primary:active:not(:disabled),
+.btn-accent:active:not(:disabled) {
+  background-color: var(--accent-active);
+}
+
+.btn-secondary {
+  background-color: var(--bg-control);
+  color: var(--color-text);
+  border-color: var(--border-control);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-control-hover);
+  border-color: var(--border-control-hover);
+}
+
+.btn-secondary:active:not(:disabled) {
+  background-color: var(--bg-control-active);
+}
+
+.btn-sm {
+  height: var(--control-height-sm);
+  padding: 0 10px;
+  font-size: 12px;
+  gap: 6px;
+}
+
+.btn-lg {
+  height: var(--control-height-lg);
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+/* ============================================================================
+   全局控件：输入框 / 下拉框
+   ========================================================================== */
+.input-control,
+.select-control {
+  height: var(--control-height);
+  padding: 0 10px;
+  background-color: var(--bg-control);
+  border: 1px solid var(--border-control);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.input-control:hover:not(:disabled),
+.select-control:hover:not(:disabled) {
+  background-color: var(--bg-control-hover);
+}
+
+.input-control:focus,
+.select-control:focus {
+  outline: none;
+  background-color: var(--bg-control-active);
+  border-color: var(--border-control);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0;
+}
+
+.input-control:disabled,
+.select-control:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+select,
+.select-control {
+  color-scheme: dark;
+}
+
+select option,
+.select-control option {
+  background-color: #2b2b2b;
+  color: #ffffff;
+}
+
+/* ---- 允许文本选择的区域 ---- */
+input,
+textarea,
+code,
+pre,
+.selectable-text,
+.mono-font,
+.log-row,
+.log-message,
+.drawer-body,
+.diff-content-table {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* ============================================================================
+   卡片
+   ========================================================================== */
+.acrylic-card,
+.winui-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+}
+
+/* ---- 卡片骨架（工作台的账号卡、通用配置卡、占位卡共用） ----
+   拆组件后这些规则必须放在全局层：子组件内部元素拿不到父级的 scoped 作用域。 */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-header-right {
+  flex-shrink: 0;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.card-desc {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ---- 危险操作的轻量按钮（撤销还原等） ---- */
+/* ---- 工作台主/次操作按钮 ---- */
+.btn-winui-primary {
+  height: var(--control-height-lg, 36px);
+  border-radius: var(--radius-md, 6px);
+  background: var(--accent);
+  color: var(--accent-text, #ffffff);
+  border: 1px solid var(--stroke-3);
+}
+
+.btn-winui-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.btn-winui-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-winui-secondary {
+  height: var(--control-height-lg, 36px);
+  border-radius: var(--radius-md, 6px);
+  background: var(--surface-4);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.btn-winui-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.btn-winui-secondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-winui-danger-subtle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 16px;
+  height: var(--control-height);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  color: #ff99a4;
+  background: var(--tone-error-weak);
+  border: 1px solid var(--tone-error-strong);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-winui-danger-subtle:hover:not(:disabled) {
+  background: rgba(255, 107, 129, 0.2);
+  border-color: #ff6b81;
+  color: #ffffff;
+}
+
+.btn-winui-danger-subtle:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---- 通用加载指示器 ---- */
+@keyframes winui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinning {
+  animation: winui-spin 0.9s linear infinite;
+}
+
+/* ---- 小型加载指示器 ----
+   全局唯一定义：各组件只需覆盖尺寸/颜色变量，不再复制整块样式。
+   默认值 = 原「按文件备份」与路径设置里的那份（12px / 白 35% / 白色顶弧）。 */
+.spinner-small {
+  display: inline-block;
+  width: var(--spinner-size, 12px);
+  height: var(--spinner-size, 12px);
+  border: 2px solid var(--spinner-border, rgba(255, 255, 255, 0.35));
+  border-top-color: var(--spinner-top, #ffffff);
+  border-radius: 50%;
+  animation: winui-spin 0.8s linear infinite;
+}
+
+/* ---- 对话框标题 ----
+   四个弹窗原本各写一份相同的 15px/600/文本色；差异项（flex、letter-spacing）留在各自组件里。 */
+.modal-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* 矮窗口（1080x680 最小尺寸）隐藏卡片描述，把首屏留给操作区。
+   限定在 .winui-card 内：全局裸 .card-desc 会把别处同名元素一起隐藏。 */
+@media (max-height: 760px) {
+  .winui-card .card-desc {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ============================================================================
+   全局浮层提示（接管原生 title）
+   ----------------------------------------------------------------------------
+   原生 tooltip 在深色主题里是浅灰系统样式，和 WinUI 令牌完全不搭；
+   这里换成同一套色阶的浮层，带箭头、支持换行与贴边翻转。
+   结构由 utils/tooltip.ts 创建，这里只负责长相。
+   ========================================================================== */
+.app-tooltip {
+  position: fixed;
+  /* 必须压过所有弹层：路径设置是 9998、最上层 9999，取 10000 才不会藏在遮罩后面。 */
+  z-index: 10000;
+  max-width: 320px;
+  padding: 6px 9px;
+  border-radius: var(--radius-control, 4px);
+  background-color: #1b1b1b;
+  color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.3);
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  line-height: 17px;
+  white-space: pre-line;
+  word-break: break-word;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 90ms cubic-bezier(0, 0, 0, 1), transform 90ms cubic-bezier(0, 0, 0, 1);
+}
+
+.app-tooltip.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 箭头：跟着锚点中心走，--arrow-x 由脚本算好 */
+.app-tooltip::after {
+  content: '';
+  position: absolute;
+  left: var(--arrow-x, 50%);
+  width: 7px;
+  height: 7px;
+  background-color: #1b1b1b;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.app-tooltip[data-placement='top']::after {
+  bottom: -4px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.app-tooltip[data-placement='bottom']::after {
+  top: -4px;
+  transform: translateX(-50%) rotate(225deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-tooltip {
+    transition: none;
+  }
+}
